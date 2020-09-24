@@ -1,0 +1,28 @@
+{
+  "name": "wdesign-dev-back",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ghtea/wdesign-back.git",
+  "author": "ghtea <eiirwp@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-node": "^0.0.1-security",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-3": "^6.24.1"
+  },
+  "scripts": {
+    "start": "babel-node src/index.js"
+  },
+  "dependencies": {
+    "axios": "^0.20.0",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.3",
+    "moongoose": "^0.0.5",
+    "uuid": "^8.3.0"
+  }
+}
