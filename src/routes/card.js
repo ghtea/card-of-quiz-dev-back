@@ -2,31 +2,31 @@ import express from 'express';
 
 //import queryString from 'query-string';
 
-import ColorScheme from '../models/ColorScheme';
+import Card from '../models/Card';
 
 var router = express.Router();
 
 
 
 // 
-router.get('/:idColorScheme', async(req, res, next) => {
+router.get('/:idCard', async(req, res, next) => {
 
   try {
 
     const filter = {
-      _id: req.params.idColorScheme
+      _id: req.params.idCard
     };
 
-  ColorScheme.findOne(filter, (err, founColorScheme) => {
+  Card.findOne(filter, (err, founCard) => {
       if (err) return res.status(500).json({
         error: err
       });
-      else if (!founColorScheme) {
+      else if (!founCard) {
         return res.status(404).json({
-          error: 'ColorScheme not found'
+          error: 'Card not found'
         });
       } else {
-        res.json(founColorScheme);
+        res.json(founCard);
       }
     });
 
@@ -67,11 +67,11 @@ router.get('/', (req, res) => {
   }]
 
 
-  ColorScheme.aggregate(pipeline, (err, listColorScheme) => {
+  Card.aggregate(pipeline, (err, listCard) => {
     if (err) return res.status(500).send({
       error: 'database failure'
     });
-    res.json(listColorScheme);
+    res.json(listCard);
   })
 
 });
@@ -86,21 +86,21 @@ router.post('/', async(req, res, next) => {
 
     const date = Date.now();
 
-    const ColorSchemeReq = req.body.ColorScheme;
-    
-    let mongoColorScheme = new ColorScheme({
+    const colorAssignmentReq = req.body;
+
+    let mongoCard = new Card({
       
-      ...ColorSchemeReq
+      ...colorAssignmentReq
       
       , created: date
       , updated: date
         
     });
 
-    await mongoColorScheme.save();
+    await mongoCard.save();
 
 
-    res.send("new ColorScheme has been created!");
+    res.send("new Card has been created!");
 
   } catch (error) {
     next(error)
@@ -116,33 +116,33 @@ router.post('/', async(req, res, next) => {
 
 
 //UPDATE
-router.put('/:idColorScheme', async(req, res, next) => {
+router.put('/:idCard', async(req, res, next) => {
 
   try {
 
     const filter = {
-      _id: req.params.idColorScheme
+      _id: req.params.idCard
     };
 
     const date = Date.now();
 
 
 
-    const ColorSchemeReq = req.body;
+    const colorAssignmentReq = req.body;
 
 
 
     let update = {
 
-      ...ColorSchemeReq
+      ...colorAssignmentReq
       
       , updated: date
     };
 
 
-    await ColorScheme.updateOne(filter, update);
+    await Card.updateOne(filter, update);
 
-    res.send("The ColorScheme has benn updated!");
+    res.send("The Card has benn updated!");
 
   } catch (error) {
     next(error)
@@ -156,18 +156,18 @@ router.put('/:idColorScheme', async(req, res, next) => {
 
 
 // DELETE Comp
-router.delete('/:idColorScheme', async(req, res, next) => {
+router.delete('/:idCard', async(req, res, next) => {
 
   try {
 
     try {
       const filter = {
-        _id: req.params.idColorScheme
+        _id: req.params.idCard
       };
-      await ColorScheme.deleteOne(filter);
+      await Card.deleteOne(filter);
 
 
-      res.send("The ColorScheme has been deleted");
+      res.send("The Card has been deleted");
 
     } catch (error) {
       console.log(error);

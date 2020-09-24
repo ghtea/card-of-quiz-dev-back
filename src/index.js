@@ -32,8 +32,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 
-app.use('/colorTable', require('./routes/colorTable'));
-app.use('/colorAssignment', require('./routes/colorAssignment'));
+app.use('/card', require('./routes/card'));
 //app.use('/auth-local', require('./routes/auth-local'));
 //app.use('/auth-bnet', require('./routes/auth-bnet'));
 
