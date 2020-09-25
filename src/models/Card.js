@@ -2,27 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 
-const schemaQuiz = new Schema({
-  _id: String,
-  
-  instruction: [String],
-  text: [String],
-  
-  answer: [String]
-  
-});
-
-
-const schemaReward = new Schema({
-  _id: String,
-  
-  type: String,
-  
-  link: String,
-  text: String
-  
-});
-
 
 
 const schemaCard = new Schema({
@@ -32,11 +11,24 @@ const schemaCard = new Schema({
   author: String,
   source: String,
   
-  symbol: String,
-  number: Number,
   
-  quiz: schemaQuiz,
-  reward: [schemaReward],
+  subject: String,   // Korean
+  symbol: String,   // Star
+  number: Number,   // 1,2,3,4,5,...
+  
+  quiz: {
+    instruction: [String],
+    text: [String],
+    hint: [String],
+    answer: String
+  },
+  
+  reward: {
+    appointed: Boolean,
+    _id: String,
+    number: Number,
+    tags: [String]
+  }
   
   created: Date,
   updated: Date

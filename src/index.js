@@ -33,6 +33,7 @@ app.use(cookieParser());
 
 
 app.use('/card', require('./routes/card'));
+app.use('/reward', require('./routes/reward'));
 //app.use('/auth-local', require('./routes/auth-local'));
 //app.use('/auth-bnet', require('./routes/auth-bnet'));
 
