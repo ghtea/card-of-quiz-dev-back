@@ -46,8 +46,16 @@ router.get('/', (req, res) => {
   const query = req.query;
 
 
-  const filterAuthor = (query.idAuthor) ? {
-    author: query.idAuthor
+  const filterAuthor = (query.author) ? {
+    author: query.author
+  } : {};
+  
+  const filterSubject = (query.subject) ? {
+    author: query.subject
+  } : {};
+  
+  const filterSymbol = (query.symbol) ? {
+    author: query.symbol
   } : {};
 
 
@@ -55,7 +63,9 @@ router.get('/', (req, res) => {
 
     $and: [
 
-      filterAuthor
+      filterAuthor,
+      filterSubject,
+      filterSymbol
       
     ]
 

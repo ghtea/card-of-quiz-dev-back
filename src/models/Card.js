@@ -19,16 +19,23 @@ const schemaCard = new Schema({
   quiz: {
     instruction: [String],
     text: [String],
-    hint: [String],
-    answer: String
+    hint: [String]
   },
   
+  answer: {
+    kind: String,   // text, choice
+    text: {
+      value: String,
+      placeholder: String
+    }
+  },
+      
   reward: {
     appointed: Boolean,
     _id: String,
     number: Number,
     tags: [String]
-  }
+  },
   
   created: Date,
   updated: Date
