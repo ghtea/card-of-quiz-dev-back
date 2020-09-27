@@ -2,31 +2,31 @@ import express from 'express';
 
 //import queryString from 'query-string';
 
-import Reward from '../models/Reward';
+import CardQuiz from '../models/CardQuiz';
 
 var router = express.Router();
 
 
 
 // 
-router.get('/:idReward', async(req, res, next) => {
+router.get('/:idCardQuiz', async(req, res, next) => {
 
   try {
 
     const filter = {
-      _id: req.params.idReward
+      _id: req.params.idCardQuiz
     };
 
-  Reward.findOne(filter, (err, founReward) => {
+  CardQuiz.findOne(filter, (err, founCardQuiz) => {
       if (err) return res.status(500).json({
         error: err
       });
-      else if (!founReward) {
+      else if (!founCardQuiz) {
         return res.status(404).json({
-          error: 'Reward not found'
+          error: 'CardQuiz not found'
         });
       } else {
-        res.json(founReward);
+        res.json(founCardQuiz);
       }
     });
 
@@ -45,21 +45,28 @@ router.get('/', (req, res) => {
 
   const query = req.query;
 
-  const filterType = (query.filterType) ? {
-    type: query.type
+
+  const filterAuthor = (query.author) ? {
+    author: query.author
   } : {};
   
-  const filterTags = (query.filterTags && JSON.parse(query.filterTags).length !== 0) ? {
-    tags: {
-      $all: JSON.parse(query.filterTag)
-    }
+  const filterSubject = (query.subject) ? {
+    author: query.subject
   } : {};
+  
+  const filterSymbol = (query.symbol) ? {
+    author: query.symbol
+  } : {};
+
 
   const filter = {
 
     $and: [
-      filterType,
-      filterTags
+
+      filterAuthor,
+      filterSubject,
+      filterSymbol
+      
     ]
 
   };
@@ -70,11 +77,11 @@ router.get('/', (req, res) => {
   }]
 
 
-  Reward.aggregate(pipeline, (err, listReward) => {
+  CardQuiz.aggregate(pipeline, (err, listCardQuiz) => {
     if (err) return res.status(500).send({
       error: 'database failure'
     });
-    res.json(listReward);
+    res.json(listCardQuiz);
   })
 
 });
@@ -91,7 +98,7 @@ router.post('/', async(req, res, next) => {
 
     const colorAssignmentReq = req.body;
 
-    let mongoReward = new Reward({
+    let mongoCardQuiz = new CardQuiz({
       
       ...colorAssignmentReq
       
@@ -100,10 +107,10 @@ router.post('/', async(req, res, next) => {
         
     });
 
-    await mongoReward.save();
+    await mongoCardQuiz.save();
 
 
-    res.send("new Reward has been created!");
+    res.send("new CardQuiz has been created!");
 
   } catch (error) {
     next(error)
@@ -119,12 +126,12 @@ router.post('/', async(req, res, next) => {
 
 
 //UPDATE
-router.put('/:idReward', async(req, res, next) => {
+router.put('/:idCardQuiz', async(req, res, next) => {
 
   try {
 
     const filter = {
-      _id: req.params.idReward
+      _id: req.params.idCardQuiz
     };
 
     const date = Date.now();
@@ -143,9 +150,9 @@ router.put('/:idReward', async(req, res, next) => {
     };
 
 
-    await Reward.updateOne(filter, update);
+    await CardQuiz.updateOne(filter, update);
 
-    res.send("The Reward has benn updated!");
+    res.send("The CardQuiz has benn updated!");
 
   } catch (error) {
     next(error)
@@ -159,18 +166,18 @@ router.put('/:idReward', async(req, res, next) => {
 
 
 // DELETE Comp
-router.delete('/:idReward', async(req, res, next) => {
+router.delete('/:idCardQuiz', async(req, res, next) => {
 
   try {
 
     try {
       const filter = {
-        _id: req.params.idReward
+        _id: req.params.idCardQuiz
       };
-      await Reward.deleteOne(filter);
+      await CardQuiz.deleteOne(filter);
 
 
-      res.send("The Reward has been deleted");
+      res.send("The CardQuiz has been deleted");
 
     } catch (error) {
       console.log(error);

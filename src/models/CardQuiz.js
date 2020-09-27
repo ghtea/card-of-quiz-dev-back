@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 
 
-const schemaCard = new Schema({
+const schemaCardQuiz = new Schema({
   
   _id: String,
   
@@ -40,8 +40,8 @@ const schemaCard = new Schema({
   created: Date,
   updated: Date
   
-}, { collection: 'Card_', versionKey: false, strict: false});
+}, { collection: 'CardQuiz_', versionKey: false, strict: false});
 
 
 
-module.exports = mongoose.model('Card', schemaCard);
+module.exports = mongoose.model('CardQuiz', schemaCardQuiz);
