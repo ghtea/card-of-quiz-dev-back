@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
-import CardReward from '../models/CardReward';
+import Reward from '../models/Reward';
 import {returnStringFromNumber} from '../tools/vanilla/number-string';
 
 dotenv.config({ 
@@ -26,7 +26,7 @@ console.log(`DB Connection Error: ${err.message}`);
 
 
 
-const addCardReward = async (obj) => {
+const addReward = async (obj) => {
   
   const date = Date.now();
   
@@ -40,12 +40,12 @@ const addCardReward = async (obj) => {
       updated: date
     };
     
-    const mongoCardReward = new CardReward(objNew);
+    const mongoReward = new Reward(objNew);
     
-    await mongoCardReward.save();
+    await mongoReward.save();
       
     
-    console.log(`CardReward ${obj._id} has benn saved successfully!`);
+    console.log(`Reward ${obj._id} has benn saved successfully!`);
      
   } catch (error) {
     console.error(error);
@@ -64,22 +64,22 @@ const addCardReward = async (obj) => {
 */
 
 
-const returnListCardReward = ({
+const returnListReward = ({
   numberAll, author, kind, symbol, linkBasic, tags
 }) =>{
   
-  let listCardReward = [];
-  for (var iCardReward=0; iCardReward<numberAll; iCardReward++){
+  let listReward = [];
+  for (var iReward=0; iReward<numberAll; iReward++){
     
-    console.log(iCardReward)
-    const link = `${linkBasic}/${returnStringFromNumber(iCardReward+1,2)}.${kind}`;
+    console.log(iReward)
+    const link = `${linkBasic}/${returnStringFromNumber(iReward+1,2)}.${kind}`;
     
     const obj = {
       _id: uuidv4(),
       author: author,
       
-      symbol: symbol,   // Heart
-      number: iCardReward+1,   // 1,2,3,4,5,...
+      //symbol: symbol,   // Heart
+      //number: iReward+1,   // 1,2,3,4,5,...
       
       reward: {
         kind: kind,   // img, gif, text, ...
@@ -94,16 +94,16 @@ const returnListCardReward = ({
       updated: Date
     }
     
-    listCardReward.push(obj);
+    listReward.push(obj);
     
-    //console.log(listCardReward)
+    //console.log(listReward)
   }
   
-  return (listCardReward);
+  return (listReward);
 }
 
 
-const addListCardReward = async() => {
+const addListReward = async() => {
   
   try {
     const obj ={
@@ -115,17 +115,17 @@ const addListCardReward = async() => {
       tags: ['love', 'cute', 'character']
     };
     
-    const listCardReward = returnListCardReward( obj );
+    const listReward = returnListReward( obj );
     
     
-    for ( const objCardReward of listCardReward ){
-      await addCardReward(objCardReward);
-      //console.log(objCardReward);
+    for ( const objReward of listReward ){
+      await addReward(objReward);
+      //console.log(objReward);
     }
-    console.log('all CardRewards have been saved');
+    console.log('all Rewards have been saved');
     
   } catch(error) {console.error(error);}
 }
 
 
-addListCardReward();
+addListReward();

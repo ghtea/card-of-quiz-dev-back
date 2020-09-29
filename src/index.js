@@ -33,7 +33,7 @@ app.use(cookieParser());
 
 
 app.use('/cardQuiz', require('./routes/cardQuiz'));
-app.use('/cardReward', require('./routes/cardReward'));
+app.use('/reward', require('./routes/reward'));
 //app.use('/auth-local', require('./routes/auth-local'));
 //app.use('/auth-bnet', require('./routes/auth-bnet'));
 

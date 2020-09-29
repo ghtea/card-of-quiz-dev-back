@@ -56,7 +56,7 @@ console.log(`DB Connection Error: ${err.message}`);
 
 */
 
-const addCardQuizKorean = async (partCardQuizKorean, number) => {
+const addCardQuizKorean = async (partCardQuizKorean) => {
   
   const date = Date.now();
   
@@ -70,9 +70,11 @@ const addCardQuizKorean = async (partCardQuizKorean, number) => {
       
       subject: 'Korean',   // Korean
       symbol: 'Heart',   // Star
-      number: number,   // 1,2,3,4,5,...
+      //number: number,   // 1,2,3,4,5,...
       
       ...partCardQuizKorean,
+      
+      listScore: [],
       
       created: date,
       updated: date
@@ -95,9 +97,9 @@ const addCardQuizKorean = async (partCardQuizKorean, number) => {
 const addListCardQuizKorean = async () => {
   for (var i = 0; i < listPartCardQuizKorean.length; i++){
     const partCardQuizKorean = listPartCardQuizKorean[i];
-    const number = i + 1;
+    //const number = i + 1;
     
-    await addCardQuizKorean(partCardQuizKorean, number);
+    await addCardQuizKorean(partCardQuizKorean);
   }
 }
 

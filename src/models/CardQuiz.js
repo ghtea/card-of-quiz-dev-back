@@ -3,18 +3,27 @@ const Schema = mongoose.Schema;
 
 
 
+var schemaScore = new Schema({
+  _id: String, 
+  idUser: String, // Jia
+  solved: Boolean,
+  score: Number,
+  updated: Date
+});
+
 
 const schemaCardQuiz = new Schema({
   
   _id: String,
   
   author: String,
-  source: String,
+  //source: String,
   
   
   subject: String,   // Korean
   symbol: String,   // Star
-  number: Number,   // 1,2,3,4,5,...
+  //level: String
+  //number: Number,   // 1,2,3,4,5,...
   
   quiz: {
     instruction: [String],
@@ -25,17 +34,24 @@ const schemaCardQuiz = new Schema({
   answer: {
     kind: String,   // text, choice
     text: {
-      value: String,
+      valueCorrect: String,
+      valueTrying: { type: String, default: ""},
       placeholder: String
     }
   },
       
   reward: {
-    appointed: Boolean,
-    _id: String,
-    number: Number,
-    tags: [String]
+    appointed: [String],
+    
+    ready: { type: Boolean, default: false}, // for redux (in device)
+    loading: { type: Boolean, default: false}, // for redux (in device)
+    
+    showing: { type: Boolean, default: false} // for redux (in device)
   },
+  
+  listScore: [ schemaScore ],
+  solved: { type: Boolean, default: false}, // for redux (in device)
+  
   
   created: Date,
   updated: Date

@@ -8,11 +8,11 @@ const schemaCardReward = new Schema({
   _id: String,
   
   author: String,
-  source: String,
+  //source: String,
   
   // subject: String,   // Love
-  symbol: String,   // Heart
-  number: Number,   // 1,2,3,4,5,...
+  // symbol: String,   // Heart
+  //number: Number,   // 1,2,3,4,5,...
   
   reward: {
     kind: String,   // img, gif, text, ...

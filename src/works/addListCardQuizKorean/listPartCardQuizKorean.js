@@ -8,18 +8,18 @@ const listPartCardKorean = [
       text: ['Good Night / Did you have a good sleep?'],
       hint: ['']
     },
-    answer: { kind: 'text', text: { value: '잘자 / 잘잤어?', placeholder: 'OO / OOO?' } },   // text, choice },
-    reward: { appointed: false, number: 1, tags: ['love', 'cute', 'character'] }
+    answer: { kind: 'text', text: { valueCorrect: '잘자 & 잘잤어?', valueTrying: '** & **ㅇ?', placeholder: '** & **ㅇ?' } },   // text, choice },
+    reward: { appointed: ['love', 'cute', 'character'] }
 	},
 	
 	{
 		quiz: {
       instruction: ['Answer the question in Korean'],
-      text: ["Your and your husband's Korean name"],
+      text: ["Your Korean name - your husband's Korean name"],
       hint: ['']
     },
-    answer: { kind: 'text', text: { value: '지아 - 재현', placeholder: 'OO - OO?' } },   // text, choice },
-    reward: { appointed: false, number: 1, tags: ['love', 'cute', 'character'] }
+    answer: { kind: 'text', text: { valueCorrect: '지아 & 재현', valueTrying: '** & *ㅎ', placeholder: '** & *ㅎ' } },   // text, choice },
+    reward: { appointed: ['love', 'cute', 'character'] }
 	}
 	
 ]
