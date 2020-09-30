@@ -2,31 +2,31 @@ import express from 'express';
 
 //import queryString from 'query-string';
 
-import CardQuiz from '../models/CardQuiz';
+import Quiz from '../models/Quiz';
 
 var router = express.Router();
 
 
 
 // 
-router.get('/:idCardQuiz', async(req, res, next) => {
+router.get('/:idQuiz', async(req, res, next) => {
 
   try {
 
     const filter = {
-      _id: req.params.idCardQuiz
+      _id: req.params.idQuiz
     };
 
-  CardQuiz.findOne(filter, (err, founCardQuiz) => {
+  Quiz.findOne(filter, (err, founQuiz) => {
       if (err) return res.status(500).json({
         error: err
       });
-      else if (!founCardQuiz) {
+      else if (!founQuiz) {
         return res.status(404).json({
-          error: 'CardQuiz not found'
+          error: 'Quiz not found'
         });
       } else {
-        res.json(founCardQuiz);
+        res.json(founQuiz);
       }
     });
 
@@ -77,11 +77,11 @@ router.get('/', (req, res) => {
   }]
 
 
-  CardQuiz.aggregate(pipeline, (err, listCardQuiz) => {
+  Quiz.aggregate(pipeline, (err, listQuiz) => {
     if (err) return res.status(500).send({
       error: 'database failure'
     });
-    res.json(listCardQuiz);
+    res.json(listQuiz);
   })
 
 });
@@ -98,7 +98,7 @@ router.post('/', async(req, res, next) => {
 
     const colorAssignmentReq = req.body;
 
-    let mongoCardQuiz = new CardQuiz({
+    let mongoQuiz = new Quiz({
       
       ...colorAssignmentReq
       
@@ -107,10 +107,10 @@ router.post('/', async(req, res, next) => {
         
     });
 
-    await mongoCardQuiz.save();
+    await mongoQuiz.save();
 
 
-    res.send("new CardQuiz has been created!");
+    res.send("new Quiz has been created!");
 
   } catch (error) {
     next(error)
@@ -126,12 +126,12 @@ router.post('/', async(req, res, next) => {
 
 
 //UPDATE
-router.put('/:idCardQuiz', async(req, res, next) => {
+router.put('/:idQuiz', async(req, res, next) => {
 
   try {
 
     const filter = {
-      _id: req.params.idCardQuiz
+      _id: req.params.idQuiz
     };
 
     const date = Date.now();
@@ -150,9 +150,9 @@ router.put('/:idCardQuiz', async(req, res, next) => {
     };
 
 
-    await CardQuiz.updateOne(filter, update);
+    await Quiz.updateOne(filter, update);
 
-    res.send("The CardQuiz has benn updated!");
+    res.send("The Quiz has benn updated!");
 
   } catch (error) {
     next(error)
@@ -166,18 +166,18 @@ router.put('/:idCardQuiz', async(req, res, next) => {
 
 
 // DELETE Comp
-router.delete('/:idCardQuiz', async(req, res, next) => {
+router.delete('/:idQuiz', async(req, res, next) => {
 
   try {
 
     try {
       const filter = {
-        _id: req.params.idCardQuiz
+        _id: req.params.idQuiz
       };
-      await CardQuiz.deleteOne(filter);
+      await Quiz.deleteOne(filter);
 
 
-      res.send("The CardQuiz has been deleted");
+      res.send("The Quiz has been deleted");
 
     } catch (error) {
       console.log(error);

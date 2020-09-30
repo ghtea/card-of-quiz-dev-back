@@ -3,8 +3,8 @@ import dotenv from "dotenv";
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
-import CardQuiz from '../models/CardQuiz';
-import listPartCardQuizKorean from './addListCardQuizKorean/listPartCardQuizKorean';
+import Quiz from '../models/Quiz';
+import listPartQuiz from './addListQuiz/listPartQuiz';
 
 
 dotenv.config({ 
@@ -56,23 +56,22 @@ console.log(`DB Connection Error: ${err.message}`);
 
 */
 
-const addCardQuizKorean = async (partCardQuizKorean) => {
+const addQuiz = async (partQuiz) => {
   
   const date = Date.now();
   
   try {
     
-    const objCardQuiz = {
+    const objQuiz = {
       
       _id: uuidv4(),
   
       author: 'Jeyon',
       
-      subject: 'Korean',   // Korean
-      symbol: 'Heart',   // Star
+      
       //number: number,   // 1,2,3,4,5,...
       
-      ...partCardQuizKorean,
+      ...partQuizKorean,
       
       listScore: [],
       
@@ -80,12 +79,12 @@ const addCardQuizKorean = async (partCardQuizKorean) => {
       updated: date
     }
     
-    const mongoCardQuiz = new CardQuiz(objCardQuiz);
+    const mongoQuiz = new Quiz(objQuiz);
     
-    await mongoCardQuiz.save();
+    await mongoQuiz.save();
       
     
-    console.log(`CardQuiz ${objCardQuiz._id} has benn saved successfully!`);
+    console.log(`Quiz ${objQuiz._id} has benn saved successfully!`);
      
   } catch (error) {
     console.error(error);
@@ -94,14 +93,14 @@ const addCardQuizKorean = async (partCardQuizKorean) => {
 };
     
 
-const addListCardQuizKorean = async () => {
-  for (var i = 0; i < listPartCardQuizKorean.length; i++){
-    const partCardQuizKorean = listPartCardQuizKorean[i];
+const addListQuizKorean = async () => {
+  for (var i = 0; i < listPartQuizKorean.length; i++){
+    const partQuizKorean = listPartQuizKorean[i];
     //const number = i + 1;
     
-    await addCardQuizKorean(partCardQuizKorean);
+    await addQuizKorean(partQuizKorean);
   }
 }
 
 
-addListCardQuizKorean();
+addListQuizKorean();
