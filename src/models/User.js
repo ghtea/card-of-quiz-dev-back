@@ -17,37 +17,36 @@ const hash = (password) => {
 const User = new Schema({
 	
   //username: String
-  _id: String
-  , type: { type: String, default: "normal" } 
+  _id: String,
+  type: { type: String, default: "normal" },
   
-  , email: { type: String }
-  , passwordHashed: String // 비밀번호를 해싱해서 저장합니다
+  email: { type: String },
+  passwordHashed: String, // 비밀번호를 해싱해서 저장합니다
   
-  , twitter: String
-  , google: String
+  twitter: String,
+  google: String,
   
-  , joined: { type: Date, default: Date.now }
-  , accessed: { type: Date, default: Date.now }
+  joined: { type: Date, default: Date.now },
+  accessed: { type: Date, default: Date.now },
 
-  , listSubject: [String],
-  , listSymbol: [String]
+  listSubject: [String],
+  listSymbol: [String]
     
 }, { collection: 'User_', versionKey: false, strict: false} );
 
 
 //username, email, password
 // this 를 사용하려면 화살표 함수는 X 인듯?
-User.statics.register = async function ( {_id, email, password} ) {
+User.statics.register = async function ( obj ) {
   // 데이터를 생성 할 때는 new this() 를 사용합니다.
   
+  const passwordHashed = hash(obj.password);
+  delete obj.password;
+  
   const mongoUser = new this({
-      _id: _id
-      , type: "normal"
-    
-      , email: email
-      , passwordHashed: hash(password)
+    ...obj
+    , passwordHashed: passwordHashed
   });
- 
     return mongoUser.save();  //약간 의문이 들지만 우선 다음에 살펴보자
 };
 
