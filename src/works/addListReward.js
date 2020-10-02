@@ -32,15 +32,7 @@ const addReward = async (obj) => {
   
   try {
     
-    const objNew = {
-      
-      ...obj,
-      
-      created: date,
-      updated: date
-    };
-    
-    const mongoReward = new Reward(objNew);
+    const mongoReward = new Reward(obj);
     
     await mongoReward.save();
       
@@ -74,24 +66,20 @@ const returnListReward = ({
     console.log(iReward)
     const link = `${linkBasic}/${returnStringFromNumber(iReward+1,2)}.${kind}`;
     
+    const date = Date.now();
+    
     const obj = {
       _id: uuidv4(),
       author: author,
       
-      //symbol: symbol,   // Heart
-      //number: iReward+1,   // 1,2,3,4,5,...
+      kind: kind,   // img, gif, text, ...
+      link: link,
+      //text: String,
+    
+      tags: tags,  // (whatever) character, cute
       
-      reward: {
-        kind: kind,   // img, gif, text, ...
-        
-        link: link,
-        //text: String,
-      
-        tags: tags  // (whatever) character, cute
-      },
-      
-      created: Date,
-      updated: Date
+      created: date,
+      updated: date
     }
     
     listReward.push(obj);

@@ -46,11 +46,11 @@ router.get('/', (req, res) => {
   const query = req.query;
 
   const filterKind = (query.filterKind) ? {
-    "reward.kind": query.filterKind
+    "kind": query.filterKind
   } : {};
   
   const filterTags = (query.filterTags && JSON.parse(query.filterTags).length !== 0) ? {
-    "reward.tags": {
+    "tags": {
       $all: JSON.parse(query.filterTags)
     }
   } : {};

@@ -66,12 +66,9 @@ const addQuiz = async (partQuiz) => {
       
       _id: uuidv4(),
   
-      author: 'Jeyon',
-      
-      
       //number: number,   // 1,2,3,4,5,...
       
-      ...partQuizKorean,
+      ...partQuiz,
       
       listScore: [],
       
@@ -93,14 +90,14 @@ const addQuiz = async (partQuiz) => {
 };
     
 
-const addListQuizKorean = async () => {
-  for (var i = 0; i < listPartQuizKorean.length; i++){
-    const partQuizKorean = listPartQuizKorean[i];
+const addListQuiz = async () => {
+  for (var i = 0; i < listPartQuiz.length; i++){
+    const partQuiz = listPartQuiz[i];
     //const number = i + 1;
     
-    await addQuizKorean(partQuizKorean);
+    await addQuiz(partQuiz);
   }
 }
 
 
-addListQuizKorean();
+addListQuiz();
