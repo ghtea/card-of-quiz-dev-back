@@ -1,0 +1,12 @@
+.env* 
+package-lock.json 
+
+build
+node_modules 
+
+
+src/config.js
+
+src/config_published.js
+src/config_editing.js
+src/config_developing.js

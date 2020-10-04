@@ -1,5 +1,5 @@
 import express from 'express';
-import Joi from 'joi';
+//import Joi from 'joi';
 import crypto from 'crypto';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
@@ -41,7 +41,6 @@ router.post('/sign-up', async (req, res, next) => {
       console.log("duplicate email") 
       res.status(403).send("duplicate email");
       // 클라이언트에서 자세한 정보를 듣고 이용하기 위해 status 코드보다는 그냥 상황 정보를 보낸다... 내 실력을 고려한 결과...
-      res.json({code_situation: "alocal01"});
       return; 
       
       // https://backend-intro.vlpt.us/3/04.html
@@ -154,6 +153,7 @@ router.post('/log-in', async (req, res, next) => {
     let resUser = Object.assign({}, foundUser._doc);
     delete resUser.passwordHashed;   // 비번 정보는 제외하고 제공
     
+    //console.log(token)
     res.cookie('access_token', token, { httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 7 }); 
     // cookie 브라우저가 설정하려면 별도의 추가 설정 필요
     // https://www.zerocho.com/category/NodeJS/post/5e9bf5b18dcb9c001f36b275
@@ -190,7 +190,7 @@ router.get('/check', async (req, res, next) => {
   
   try {
     
-    //console.log("hello, I'm /check")
+    //console.log("hello, I'm check")
     //console.log(req);
     
     const { tokenUser } = req;
@@ -198,7 +198,7 @@ router.get('/check', async (req, res, next) => {
     
     if(!tokenUser) {
       console.log("there is no tUser")
-      res.status(403); // forbidden
+      res.status(403).send("there is no valid token"); // forbidden
       return;
     }
     

@@ -9,8 +9,7 @@ dotenv.config({
 
 const secretJwt = process.env.SECRET_JWT;
 
-//console.log("hi")
-//console.log(jwtSecret)
+
 // https://backend-intro.vlpt.us/4/01.html
 
 /**
@@ -53,7 +52,7 @@ function decodeToken(token) {
 
 
 exports.jwtMiddleware = async (req, res, next) => {
-    console.log("hi, i'm jwtMiddleware")
+    console.log("hi, i'm jwtMiddleware");
     const token = req.cookies.access_token;//  access_token 을 읽어옵니다
     console.log(token);
     
